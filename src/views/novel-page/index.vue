@@ -4,8 +4,7 @@
       <el-header>
         <setup-menu
           :leftItemList="leftItemList"
-          :routerOpenFlag="routerOpenFlag"
-          :bgdColor="bgdColor"
+          :menuOptions="menuOptions"
           @showTabBar="showTabBarFn"
         />
       </el-header>
@@ -16,27 +15,29 @@
   </div>
 </template>
 <script setup lang="ts">
-import { ref, reactive, shallowRef } from "vue";
+import { reactive, shallowRef } from "vue";
 import SetupMenu from "@/common/components/setup-menu/index.vue";
-import First from "./first.vue";
+import RecommendPage from "./RecommendPage.vue";
 import Third from "./third.vue";
 import Fourth from "./fourth.vue";
-import Second from "./second.vue";
-const routerOpenFlag = ref(false);
-const bgdColor = ref("#2cc4e0");
-const componentId = shallowRef(First);
+import CategoryPage from "./CategoryPage.vue";
+const menuOptions = reactive({
+  routerOpenFlag: false,
+  bgdColor: "#2cc4e0",
+});
+const componentId = shallowRef(RecommendPage);
 // 菜单左侧ItemList
 const leftItemList = reactive([
   {
     name: "推荐",
     title: "novelPage.recommend",
-    componentId: shallowRef(First),
+    componentId: shallowRef(RecommendPage),
     roleGroup: ["super_administrator", "admin", "super_user", "user"],
   },
   {
     name: "分类",
     title: "novelPage.category",
-    componentId: shallowRef(Second),
+    componentId: shallowRef(CategoryPage),
     roleGroup: ["super_administrator", "admin", "super_user", "user"],
   },
   {
@@ -56,4 +57,8 @@ const showTabBarFn = (item: any) => {
   componentId.value = item.componentId;
 };
 </script>
-<style scoped lang="less"></style>
+<style scoped lang="less">
+.home-page {
+  background-color: #e5e3dc;
+}
+</style>
